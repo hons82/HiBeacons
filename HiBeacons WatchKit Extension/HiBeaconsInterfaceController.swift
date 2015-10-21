@@ -25,9 +25,10 @@
 //
 
 import WatchKit
+import WatchConnectivity
 import Foundation
 
-class HiBeaconsInterfaceController: WKInterfaceController
+class HiBeaconsInterfaceController: WKInterfaceController, WCSessionDelegate
 {
     @IBOutlet weak var monitoringButton: WKInterfaceButton?
     @IBOutlet weak var advertisingButton: WKInterfaceButton?
@@ -43,6 +44,12 @@ class HiBeaconsInterfaceController: WKInterfaceController
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
 
+        if WCSession.isSupported() {
+            let session = WCSession.defaultSession()
+            session.delegate = self
+            session.activateSession()
+        }
+        
         monitoringButton?.setBackgroundColor(inactiveBackgroundColor)
         advertisingButton?.setBackgroundColor(inactiveBackgroundColor)
         rangingButton?.setBackgroundColor(inactiveBackgroundColor)
@@ -59,30 +66,46 @@ class HiBeaconsInterfaceController: WKInterfaceController
     @IBAction func toggleMonitoring() {
         monitoringActive = !monitoringActive
 
-        var backgroundColor = monitoringActive ? activeBackgroundColor : inactiveBackgroundColor
+        let backgroundColor = monitoringActive ? activeBackgroundColor : inactiveBackgroundColor
         monitoringButton?.setBackgroundColor(backgroundColor)
 
-        let payload = ["Monitoring": NSNumber(bool: monitoringActive)]
-        WKInterfaceController.openParentApplication(payload, reply: nil)
+        let payload = NSKeyedArchiver.archivedDataWithRootObject(["Monitoring": NSNumber(bool: monitoringActive)])
+        //WKInterfaceController.openParentApplication(payload, reply: nil) WatchKit 1.0
+        WCSession.defaultSession().sendMessageData(payload, replyHandler: { (replymessage) -> Void in
+            
+            }) { (error) -> Void in
+                
+        }
     }
 
     @IBAction func toggleAdvertising() {
         advertisingActive = !advertisingActive
 
-        var backgroundColor = advertisingActive ? activeBackgroundColor : inactiveBackgroundColor
+        let backgroundColor = advertisingActive ? activeBackgroundColor : inactiveBackgroundColor
         advertisingButton?.setBackgroundColor(backgroundColor)
 
-        let payload = ["Advertising": NSNumber(bool: advertisingActive)]
-        WKInterfaceController.openParentApplication(payload, reply: nil)
+        let payload = NSKeyedArchiver.archivedDataWithRootObject(["Advertising": NSNumber(bool: advertisingActive)])
+        //WKInterfaceController.openParentApplication(payload, reply: nil) WatchKit 1.0
+        WCSession.defaultSession().sendMessageData(payload, replyHandler: { (replymessage) -> Void in
+            
+            }) { (error) -> Void in
+                
+        }
     }
 
     @IBAction func toggleRanging() {
         rangingActive = !rangingActive
 
-        var backgroundColor = rangingActive ? activeBackgroundColor : inactiveBackgroundColor
+        let backgroundColor = rangingActive ? activeBackgroundColor : inactiveBackgroundColor
         rangingButton?.setBackgroundColor(backgroundColor)
 
-        let payload = ["Ranging": NSNumber(bool: rangingActive)]
-        WKInterfaceController.openParentApplication(payload, reply: nil)
+        let payload = NSKeyedArchiver.archivedDataWithRootObject(["Ranging": NSNumber(bool: rangingActive)])
+        //WKInterfaceController.openParentApplication(payload, reply: nil) WatchKit 1.0
+        WCSession.defaultSession().sendMessageData(payload, replyHandler: { (replymessage) -> Void in
+            
+            }) { (error) -> Void in
+                
+        }
+
     }
 }

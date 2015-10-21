@@ -67,7 +67,7 @@ class NATViewController: UIViewController
         /**
             Returns the table view cell identifier that corresponds to the section type.
         
-            :returns: The table view cell identifier.
+            - returns: The table view cell identifier.
          */
         func cellIdentifier() -> String {
             switch self {
@@ -81,7 +81,7 @@ class NATViewController: UIViewController
         /**
             Returns the table view cell height that corresponds to the section type.
         
-            :returns: The table view cell height.
+            - returns: The table view cell height.
          */
         func tableViewCellHeight() -> CGFloat {
             switch self {
@@ -108,7 +108,7 @@ class NATViewController: UIViewController
         /**
             Returns the table view cell title that corresponds to the specific operations row.
             
-            :returns: A title for the table view cell label.
+            - returns: A title for the table view cell label.
          */
         func tableViewCellTitle() -> String {
             switch self {
@@ -150,7 +150,7 @@ class NATViewController: UIViewController
     /// The UIActivityIndicatorView that shows whether advertising is active.
     private var advertisingActivityIndicator: UIActivityIndicatorView!
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         let notificationCenter = NSNotificationCenter.defaultCenter()
@@ -177,8 +177,8 @@ extension NATViewController
         Not all of the given beacons will actually be removed. It will be determined by comparing with the currently
         detected beacons.
 
-        :param: beacons An array of CLBeacon objects.
-        :returns: An array of NSIndexPaths corresponding to positions in the table view where these beacons are.
+        - parameter beacons: An array of CLBeacon objects.
+        - returns: An array of NSIndexPaths corresponding to positions in the table view where these beacons are.
      */
     func indexPathsOfRemovedBeacons(beacons: [CLBeacon]) -> [NSIndexPath]? {
         var indexPaths: [NSIndexPath]?
@@ -187,7 +187,7 @@ extension NATViewController
         for existingBeacon in detectedBeacons {
             var stillExists = false
             for beacon in beacons {
-                if existingBeacon.major?.integerValue == beacon.major?.integerValue && existingBeacon.minor?.integerValue == beacon.minor?.integerValue {
+                if existingBeacon.major.integerValue == beacon.major.integerValue && existingBeacon.minor.integerValue == beacon.minor.integerValue {
                     stillExists = true
                     break
                 }
@@ -209,8 +209,8 @@ extension NATViewController
         Not all of the given beacons will actually be inserted. It will be determined by comparing with all the 
         currently detected beacons.
 
-        :param: beacons An array of CLBeacon objects.
-        :returns: An array of NSIndexPaths corresponding to positions in the table view where these beacons are.
+        - parameter beacons: An array of CLBeacon objects.
+        - returns: An array of NSIndexPaths corresponding to positions in the table view where these beacons are.
      */
     func indexPathsOfInsertedBeacons(beacons: [CLBeacon]) -> [NSIndexPath]? {
         var indexPaths: [NSIndexPath]?
@@ -219,7 +219,7 @@ extension NATViewController
         for beacon in beacons {
             var isNewBeacon = true
             for existingBeacon in detectedBeacons {
-                if existingBeacon.major?.integerValue == beacon.major?.integerValue && existingBeacon.minor?.integerValue == beacon.minor?.integerValue {
+                if existingBeacon.major.integerValue == beacon.major.integerValue && existingBeacon.minor.integerValue == beacon.minor.integerValue {
                     isNewBeacon = false
                     break
                 }
@@ -238,8 +238,8 @@ extension NATViewController
     /**
         Returns an array of NSIndexPath instances for the given beacons.
 
-        :param: beacons An array of CLBeacon objects.
-        :returns: An array of NSIndexPaths corresponding to positions in the table view.
+        - parameter beacons: An array of CLBeacon objects.
+        - returns: An array of NSIndexPaths corresponding to positions in the table view.
      */
     func indexPathsForBeacons(beacons: [CLBeacon]) -> [NSIndexPath] {
         var indexPaths = [NSIndexPath]()
@@ -254,10 +254,10 @@ extension NATViewController
     /**
         Returns an NSIndexSet instance of the inserted sections in the table view or nil.
 
-        :returns: An NSIndexSet instance or nil.
+        - returns: An NSIndexSet instance or nil.
      */
     func insertedSections() -> NSIndexSet? {
-        if rangingSwitch.on == true && beaconTableView.numberOfSections() == kMaxNumberOfSections - 1 {
+        if rangingSwitch.on == true && beaconTableView.numberOfSections == kMaxNumberOfSections - 1 {
             return NSIndexSet(index: 1)
         } else {
             return nil
@@ -267,10 +267,10 @@ extension NATViewController
     /**
         Returns an NSIndexSet instance of the deleted sections in the table view or nil.
 
-        :returns: An NSIndexSet instance or nil.
+        - returns: An NSIndexSet instance or nil.
      */
     func deletedSections() -> NSIndexSet? {
-        if rangingSwitch.on == false && beaconTableView.numberOfSections() == kMaxNumberOfSections {
+        if rangingSwitch.on == false && beaconTableView.numberOfSections == kMaxNumberOfSections {
             return NSIndexSet(index: 1)
         } else {
             return nil
@@ -283,16 +283,16 @@ extension NATViewController
         Duplicates may appear during ranging; this may happen temporarily if the originating device changes its 
         Bluetooth ID.
 
-        :param: beacons An array of CLBeacon objects.
-        :returns: An array of CLBeacon objects.
+        - parameter beacons: An array of CLBeacon objects.
+        - returns: An array of CLBeacon objects.
      */
     func filteredBeacons(beacons: [CLBeacon]) -> [CLBeacon] {
         var filteredBeacons = beacons   // Copy
 
         var lookup = Set<String>()
         for index in 0..<beacons.count {
-            var currentBeacon = beacons[index]
-            var identifier = "\(currentBeacon.major)/\(currentBeacon.minor)"
+            let currentBeacon = beacons[index]
+            let identifier = "\(currentBeacon.major)/\(currentBeacon.minor)"
 
             if lookup.contains(identifier) {
                 filteredBeacons.removeAtIndex(index)
@@ -310,11 +310,11 @@ extension NATViewController: UITableViewDataSource, UITableViewDelegate
 {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = NTSectionType(rawValue: indexPath.section)?.cellIdentifier()
-        var cell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellIdentifier!) as? UITableViewCell
+        var cell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellIdentifier!)
 
         switch indexPath.section {
         case NTSectionType.Operations.rawValue:
-            var operationCell = cell as! NATOperationCell
+            let operationCell = cell as! NATOperationCell
             cell?.textLabel?.text = NTOperationsRow(rawValue: indexPath.row)?.tableViewCellTitle()
 
             switch indexPath.row {
@@ -335,7 +335,7 @@ extension NATViewController: UITableViewDataSource, UITableViewDelegate
                 break
             }
         case NTSectionType.DetectedBeacons.rawValue:
-            var beacon = detectedBeacons[indexPath.row]
+            let beacon = detectedBeacons[indexPath.row]
 
             cell = cell ?? UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: cellIdentifier)
 
@@ -409,7 +409,7 @@ extension NATViewController
     /**
         Starts/stops the monitoring operation, depending on the state of the given switch.
 
-        :param: monitoringSwitch The monitoring UISwitch instance.
+        - parameter monitoringSwitch: The monitoring UISwitch instance.
      */
     func changeMonitoringState(monitoringSwitch: UISwitch) {
         monitoringSwitch.on ? monitoringOperation.startMonitoringForBeacons() : monitoringOperation.stopMonitoringForBeacons()
@@ -418,7 +418,7 @@ extension NATViewController
     /**
         Starts/stops the advertising operation, depending on the state of the given switch.
 
-        :param: advertisingSwitch The advertising UISwitch instance.
+        - parameter advertisingSwitch: The advertising UISwitch instance.
      */
     func changeAdvertisingState(advertisingSwitch: UISwitch) {
         advertisingSwitch.on ? advertisingOperation.startAdvertisingBeacon() : advertisingOperation.stopAdvertisingBeacon()
@@ -427,7 +427,7 @@ extension NATViewController
     /**
         Starts/stops the ranging operation, depending on the state of the given switch.
 
-        :param: rangingSwitch The ranging UISwitch instance.
+        - parameter rangingSwitch: The ranging UISwitch instance.
      */
     func changeRangingState(rangingSwitch: UISwitch) {
         rangingSwitch.on ? rangingOperation.startRangingForBeacons() : rangingOperation.stopRangingForBeacons()
@@ -482,7 +482,7 @@ extension NATViewController: NATMonitoringOperationDelegate
         Triggered by the monitoring operation when it has detected entering the provided region. It emits 
         a local notification.
         
-        :param: region The provided region that the monitoring operation detected.
+        - parameter region: The provided region that the monitoring operation detected.
      */
     func monitoringOperationDidDetectEnteringRegion(region: CLBeaconRegion) {
         sendLocalNotificationForBeaconRegion(region)
@@ -493,7 +493,7 @@ extension NATViewController: NATMonitoringOperationDelegate
     
         Note that major and minor are not available at the monitoring stage.
     
-        :param: region The given CLBeaconRegion instance.
+        - parameter region: The given CLBeaconRegion instance.
      */
     func sendLocalNotificationForBeaconRegion(region: CLBeaconRegion) {
         let notification = UILocalNotification()
@@ -596,14 +596,14 @@ extension NATViewController: NATRangingOperationDelegate
         
         It updates the table view to show the newly-found beacons.
 
-        :param: beacons An array of provided beacons that the ranging operation detected.
-        :param: region A provided region whose beacons the operation is trying to range.
+        - parameter beacons: An array of provided beacons that the ranging operation detected.
+        - parameter region: A provided region whose beacons the operation is trying to range.
      */
     func rangingOperationDidRangeBeacons(beacons: [AnyObject]!, inRegion region: CLBeaconRegion!) {
         let filteredBeacons = self.filteredBeacons(beacons as! [CLBeacon])
 
         if filteredBeacons.isEmpty {
-            println("No beacons found nearby.")
+            print("No beacons found nearby.")
         } else {
             let beaconsString: String
 
@@ -612,11 +612,11 @@ extension NATViewController: NATRangingOperationDelegate
             } else {
                 beaconsString = "beacon"
             }
-            println("Found \(filteredBeacons.count) \(beaconsString).")
+            print("Found \(filteredBeacons.count) \(beaconsString).")
         }
 
-        var insertedRows = indexPathsOfInsertedBeacons(filteredBeacons)
-        var deletedRows = indexPathsOfRemovedBeacons(filteredBeacons)
+        let insertedRows = indexPathsOfInsertedBeacons(filteredBeacons)
+        let deletedRows = indexPathsOfRemovedBeacons(filteredBeacons)
         var reloadedRows: [NSIndexPath]?
         if deletedRows == nil && insertedRows == nil {
             reloadedRows = indexPathsForBeacons(filteredBeacons)
@@ -661,7 +661,7 @@ extension NATViewController
         Triggers any of the three operations in the app. It effectively reflects the actions taken on the watch
         by updating the action UI and triggering the operations, based on the updated UI.
     
-        :param: notification The notification object that caused this method to be called.
+        - parameter notification: The notification object that caused this method to be called.
      */
     func performWatchAction(notification: NSNotification) {
         var payload = notification.userInfo as! [String : NSNumber]
@@ -685,7 +685,7 @@ extension CLBeacon
     /**
         Returns a specially-formatted description of the beacon's characteristics.
     
-        :returns: The beacon's description.
+        - returns: The beacon's description.
      */
     func fullDetails() -> String {
         let proximityText: String

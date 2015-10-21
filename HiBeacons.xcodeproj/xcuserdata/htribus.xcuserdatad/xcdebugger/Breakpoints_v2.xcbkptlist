@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HiBeacons/NATHiBeaconsDelegate.swift"
+            timestampString = "467133810.077718"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "session(_:didReceiveMessageData:replyHandler:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HiBeacons.NATHiBeaconsDelegate.session (HiBeacons.NATHiBeaconsDelegate)(ObjectiveC.WCSession, didReceiveMessageData : ObjectiveC.NSData, replyHandler : (ObjectiveC.NSData) -&gt; ()) -&gt; ()"
+                  moduleName = "HiBeacons"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/htribus/Documents/xcode/HiBeacons/HiBeacons/NATHiBeaconsDelegate.swift"
+                  timestampString = "467134012.541125"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HiBeacons.NATHiBeaconsDelegate.session (HiBeacons.NATHiBeaconsDelegate)(ObjectiveC.WCSession, didReceiveMessageData : ObjectiveC.NSData, replyHandler : (ObjectiveC.NSData) -&gt; ()) -&gt; ()"
+                  moduleName = "HiBeacons"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/htribus/Documents/xcode/HiBeacons/HiBeacons/NATHiBeaconsDelegate.swift"
+                  timestampString = "467134012.541373"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "@objc HiBeacons.NATHiBeaconsDelegate.session (HiBeacons.NATHiBeaconsDelegate)(ObjectiveC.WCSession, didReceiveMessageData : ObjectiveC.NSData, replyHandler : (ObjectiveC.NSData) -&gt; ()) -&gt; ()"
+                  moduleName = "HiBeacons"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/htribus/Documents/xcode/HiBeacons/HiBeacons/NATHiBeaconsDelegate.swift"
+                  timestampString = "467134012.541559"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "128">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "@objc HiBeacons.NATHiBeaconsDelegate.session (HiBeacons.NATHiBeaconsDelegate)(ObjectiveC.WCSession, didReceiveMessageData : ObjectiveC.NSData, replyHandler : (ObjectiveC.NSData) -&gt; ()) -&gt; ()"
+                  moduleName = "HiBeacons"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/htribus/Documents/xcode/HiBeacons/HiBeacons/NATHiBeaconsDelegate.swift"
+                  timestampString = "467134012.541707"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "144">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

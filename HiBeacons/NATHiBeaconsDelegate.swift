@@ -26,9 +26,10 @@
 
 import Foundation
 import UIKit
+import WatchConnectivity
 
 ///  The app delegate
-@UIApplicationMain class NATHiBeaconsDelegate: UIResponder, UIApplicationDelegate
+@UIApplicationMain class NATHiBeaconsDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate
 {
 
     /// The notification name for any watch-originating operation
@@ -38,14 +39,23 @@ import UIKit
     var window: UIWindow?
 
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+
+        if WCSession.isSupported() {
+            let session = WCSession.defaultSession()
+            session.delegate = self
+            session.activateSession()
+        }
+
         return true
     }
 
-    func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: (([NSObject : AnyObject]!) -> Void)!) {
-
-        var notificationCenter = NSNotificationCenter.defaultCenter()
-        if let payload = userInfo {
+    //func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: (([NSObject : AnyObject]?) -> Void)) { // Watchkit 1.0
+    func session(session: WCSession, didReceiveMessageData messageData: NSData, replyHandler: (NSData) -> Void) {
+        
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        if let payload = NSKeyedUnarchiver.unarchiveObjectWithData(messageData) as? [String : AnyObject] {
             notificationCenter.postNotificationName(NATHiBeaconsDelegate.NATHiBeaconsWatchNotificationName, object: self, userInfo: payload)
         }
     }
+    
 }
